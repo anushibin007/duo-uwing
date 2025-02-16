@@ -17,7 +17,7 @@ function App() {
 			>
 				<img
 					src={`${BASE_PATH}/img/waving-duo.png`}
-					width={256}
+					width={232}
 					height={256}
 					style={{ marginBottom: "50px" }}
 				/>
