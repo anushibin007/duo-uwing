@@ -14,6 +14,7 @@ function App() {
 	const [primaryCount, setPrimaryCount] = useState(0);
 	const [secondaryCount, setSecondaryCount] = useState(0);
 	const [updateTimer, setUpdateTimer] = useState(null);
+	const [flipImageVal, setFlipImageVal] = useState(1);
 
 	useEffect(() => {
 		fetchCounts();
@@ -51,6 +52,9 @@ function App() {
 		const audio = new Audio(`${BASE_PATH}/audio/${count}.m4a`);
 		audio.play();
 		scheduleUpdate();
+		setFlipImageVal((val) => {
+			return val * -1;
+		});
 	};
 	return (
 		<>
@@ -77,7 +81,7 @@ function App() {
 					src={`${BASE_PATH}/img/waving-duo.png`}
 					width={232}
 					height={256}
-					style={{ marginBottom: "50px" }}
+					style={{ marginBottom: "50px", transform: `scale(${flipImageVal}, 1)` }}
 				/>
 				<Box display="flex" gap={4}>
 					<Box display="flex" flexDirection="column" alignItems="center">
