@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, Chip, Typography } from "@mui/joy";
+import { Box, Button, Typography } from "@mui/joy";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { BASE_PATH } from "./Constants";
 import { createClient } from "@supabase/supabase-js";
 
@@ -78,31 +79,31 @@ function App() {
 					height={256}
 					style={{ marginBottom: "50px" }}
 				/>
-				<Box display="flex" gap={2}>
-					<Button size="lg" onClick={() => playAudio(5)}>
-						5 in a row
-						<Chip
-							sx={{
-								"--Chip-radius": "0px",
-							}}
-							style={{ marginLeft: "10px" }}
-							title="Click counter"
+				<Box display="flex" gap={4}>
+					<Box display="flex" flexDirection="column" alignItems="center">
+						<Button
+							size="lg"
+							startDecorator={<PlayArrowIcon />}
+							onClick={() => playAudio(5)}
 						>
-							{primaryCount}
-						</Chip>
-					</Button>
-					<Button size="lg" onClick={() => playAudio(10)}>
-						10 in a row
-						<Chip
-							sx={{
-								"--Chip-radius": "0px",
-							}}
-							style={{ marginLeft: "10px" }}
-							title="Click counter"
+							5 in a row
+						</Button>
+						<Typography level="body-xs" marginTop={1}>
+							{primaryCount} plays
+						</Typography>
+					</Box>
+					<Box display="flex" flexDirection="column" alignItems="center">
+						<Button
+							size="lg"
+							startDecorator={<PlayArrowIcon />}
+							onClick={() => playAudio(10)}
 						>
-							{secondaryCount}
-						</Chip>
-					</Button>
+							10 in a row
+						</Button>
+						<Typography level="body-xs" marginTop={1}>
+							{secondaryCount} plays
+						</Typography>
+					</Box>
 				</Box>
 			</Box>
 		</>
