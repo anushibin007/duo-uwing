@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/joy";
+import { Box, Button, Typography } from "@mui/joy";
 import { BASE_PATH } from "./Constants";
 
 function App() {
@@ -15,6 +15,13 @@ function App() {
 				alignItems="center"
 				minHeight="100vh"
 			>
+				<Typography style={{ marginBottom: "10px" }} level="h1">
+					Duolingo Uwing Sounds
+				</Typography>
+				<Typography style={{ marginBottom: "50px" }}>
+					Click away to hear the cute "uwing" sounds that Duo makes when you get a
+					5-correct or 10-correct streak
+				</Typography>
 				<img
 					src={`${BASE_PATH}/img/waving-duo.png`}
 					width={232}
