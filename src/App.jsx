@@ -35,12 +35,17 @@ function App() {
 				alignItems="center"
 				minHeight="100vh"
 			>
-				<Typography style={{ marginBottom: "10px" }} level="h1">
+				<Typography
+					style={{ marginBottom: "10px", paddingLeft: "100px", paddingRight: "100px" }}
+					level="h1"
+				>
 					Duolingo Uwing Sounds
 				</Typography>
-				<Typography style={{ marginBottom: "50px" }}>
+				<Typography
+					style={{ marginBottom: "50px", paddingLeft: "100px", paddingRight: "100px" }}
+				>
 					Click away to hear the cute "uwing" sounds that Duo makes when you get a
-					5-correct or 10-correct streak
+					5-correct or 10-correct streak !!!
 				</Typography>
 				<img
 					src={`${BASE_PATH}/img/waving-duo.png`}
