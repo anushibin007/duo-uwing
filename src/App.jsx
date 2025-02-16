@@ -1,30 +1,55 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, Chip, Typography } from "@mui/joy";
 import { BASE_PATH } from "./Constants";
+import { createClient } from "@supabase/supabase-js";
+
+const SUPABASE_URL = "https://okhkpbmauwidzsrithmo.supabase.co";
+const supabase = createClient(
+	SUPABASE_URL,
+	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9raGtwYm1hdXdpZHpzcml0aG1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk3MzQwOTEsImV4cCI6MjA1NTMxMDA5MX0.0jDncM_gOnXo58L9oSgLSBr0R9cHnYJJyh-TClJ4LII"
+);
 
 function App() {
 	const [primaryCount, setPrimaryCount] = useState(0);
 	const [secondaryCount, setSecondaryCount] = useState(0);
+	const [updateTimer, setUpdateTimer] = useState(null);
 
 	useEffect(() => {
-		const storedPrimary = localStorage.getItem("primaryCount");
-		const storedSecondary = localStorage.getItem("secondaryCount");
-		if (storedPrimary) setPrimaryCount(parseInt(storedPrimary, 10));
-		if (storedSecondary) setSecondaryCount(parseInt(storedSecondary, 10));
+		fetchCounts();
 	}, []);
+
+	const fetchCounts = async () => {
+		const { data } = await supabase.from("button_counts").select("*").single();
+		if (data) {
+			setPrimaryCount(data.primary_count);
+			setSecondaryCount(data.secondary_count);
+		}
+	};
+
+	const updateCountsToServer = async () => {
+		await supabase.from("button_counts").upsert({
+			id: 1,
+			primary_count: primaryCount,
+			secondary_count: secondaryCount,
+		});
+	};
+
+	const scheduleUpdate = () => {
+		if (updateTimer) clearTimeout(updateTimer);
+		setUpdateTimer(setTimeout(updateCountsToServer, 2000)); // 2-second delay
+	};
 
 	const playAudio = (count) => {
 		if (count == 5) {
 			const newCount = primaryCount + 1;
 			setPrimaryCount(newCount);
-			localStorage.setItem("primaryCount", newCount);
 		} else {
 			const newCount = secondaryCount + 1;
 			setSecondaryCount(newCount);
-			localStorage.setItem("secondaryCount", newCount);
 		}
 		const audio = new Audio(`${BASE_PATH}/audio/${count}.m4a`);
 		audio.play();
+		scheduleUpdate();
 	};
 	return (
 		<>
